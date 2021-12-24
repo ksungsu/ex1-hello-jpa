@@ -1,36 +1,42 @@
 package hellojpa;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity //JPA가 관리하는 객체
 public class Member {
 
     @Id //DB PK와 연결
     private Long id;
-    private String name;
+
+    @Column(name = "name")
+    private String username;
+
+    private Integer age;
+
+    //사용자 또는 관리자
+    @Enumerated(EnumType.STRING)
+    private RoleType roleType;
+
+    //생성 일자
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdDate;
+
+    //수정 일자
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date lastModifiedDate;
+
+    private LocalDate testLocalDate;
+    private LocalDateTime testLocalDateTime;
+
+    @Lob
+    private String description;
+
 
     public Member() {
     }
 
-    public Member(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }
