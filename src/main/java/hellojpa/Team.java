@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 @SequenceGenerator(name = "TEAM_SEQ_GENERATOR",
         sequenceName = "TEAM_SEQ")
-public class Team {
+public class Team extends BaseEntity{
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_SEQ_GENERATOR")
     @Column(name="TEAM_ID")

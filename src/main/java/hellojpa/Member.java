@@ -5,7 +5,7 @@ import javax.persistence.*;
 @Entity //JPA가 관리하는 객체
 @SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
                     sequenceName = "MEMBER_SEQ")
-public class Member {
+public class Member extends BaseEntity{
 
     @Id //DB PK와 연결
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
