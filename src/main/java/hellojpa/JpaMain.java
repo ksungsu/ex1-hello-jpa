@@ -19,14 +19,9 @@ public class JpaMain {
 
         try{
             Member member = new Member();
-            member.setCreatedBy("Kimsungsu");
-            member.setUsername("Kimhansaem");
-            member.setCreateDate(LocalDateTime.now());
+            member.setUsername("Kimsugsn");
 
             em.persist(member);
-
-            em.flush();
-            em.clear();
 
             tx.commit();
         }catch (Exception e){

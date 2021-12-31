@@ -1,8 +1,9 @@
 package hellojpa;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
-@Entity //JPA가 관리하는 객체
+@Entity
 @SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
                     sequenceName = "MEMBER_SEQ")
 public class Member extends BaseEntity{
@@ -15,12 +16,13 @@ public class Member extends BaseEntity{
     @Column(name = "USERNAME")
     private String username;
 
-    //    @Column(name="TEAM_ID") //테이블에 맞춰 객체 설계(연관관계 x)
-    //    private Long teamId;
+    //기간 Period
+    @Embedded
+    private Period workPeriod;
 
-    @ManyToOne
-    @JoinColumn(name="TEAM_ID")
-    private Team team;
+    //주소 Address
+    @Embedded
+    private Address homeAddress;
 
     public Member() {
     }
@@ -41,25 +43,19 @@ public class Member extends BaseEntity{
         this.username = username;
     }
 
-    public Team getTeam() {
-        return team;
+    public Period getWorkPeriod() {
+        return workPeriod;
     }
 
-    public void changeTeam(Team team) {
-        this.team = team;
-        team.getMembers().add(this);
+    public void setWorkPeriod(Period workPeriod) {
+        this.workPeriod = workPeriod;
     }
 
-    public void setTeam(Team team) {
-        this.team = team;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    @Override
-    public String toString() {
-        return "Member{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", team=" + team +
-                '}';
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }
