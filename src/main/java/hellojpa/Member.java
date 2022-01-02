@@ -6,25 +6,36 @@ import java.time.LocalDateTime;
 @Entity
 @SequenceGenerator(name = "MEMBER_SEQ_GENERATOR",
                     sequenceName = "MEMBER_SEQ")
-public class Member extends BaseEntity{
+public class Member {
 
     @Id //DB PK와 연결
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ_GENERATOR")
     @Column(name="MEMBER_ID")
     private Long id;
-
-    @Column(name = "USERNAME")
     private String username;
-
-    //기간 Period
-    @Embedded
-    private Period workPeriod;
-
-    //주소 Address
-    @Embedded
-    private Address homeAddress;
+    private int age;
 
     public Member() {
+    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
+
+    @Enumerated(EnumType.STRING)
+    private MemberType type;
+
+    public void changeTeam(Team team){
+        this.team = team;
+        team.getMembers().add(this);
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public Long getId() {
@@ -43,19 +54,20 @@ public class Member extends BaseEntity{
         this.username = username;
     }
 
-    public Period getWorkPeriod() {
-        return workPeriod;
+    public int getAge() {
+        return age;
     }
 
-    public void setWorkPeriod(Period workPeriod) {
-        this.workPeriod = workPeriod;
+    public void setAge(int age) {
+        this.age = age;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
-    }
-
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", age=" + age +
+                '}';
     }
 }

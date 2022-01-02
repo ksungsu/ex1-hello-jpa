@@ -7,15 +7,15 @@ import java.util.List;
 @Entity
 @SequenceGenerator(name = "TEAM_SEQ_GENERATOR",
         sequenceName = "TEAM_SEQ")
-public class Team extends BaseEntity{
+public class Team {
 
     @Id @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TEAM_SEQ_GENERATOR")
     @Column(name="TEAM_ID")
     private Long id;
     private String name;
 
-    //    @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
-//    private List<Member> members = new ArrayList<>();
+        @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)
+        private List<Member> members = new ArrayList<>();
 
 
 
@@ -35,7 +35,11 @@ public class Team extends BaseEntity{
         this.name = name;
     }
 
+    public List<Member> getMembers() {
+        return members;
+    }
 
-
-
+    public void setMembers(List<Member> members) {
+        this.members = members;
+    }
 }
